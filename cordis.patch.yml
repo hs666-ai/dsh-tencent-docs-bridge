@@ -1,0 +1,8 @@
+# dsh bundle patch: inserts the DSH Tencent Docs Bridge section into a profile's layer stack.
+# This plugin itself only mounts as a bundle entry; the mcp-client entry is created
+# at runtime by lib/server (so the token can be sourced from the local vault, never
+# baked into this file).  If you prefer a declarative mcp-client entry, see
+# README.md → "Declarative mode" (token must then come from env, never literal).
+- insert:
+    - id: dsh-tencent-docs-bridge
+      name: 'dsh-tencent-docs-bridge'

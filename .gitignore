@@ -1,0 +1,19 @@
+# 凭据与本地状态（严格执行，禁止入库）
+*.json.vault
+.tdoc-gateway/
+vault.json
+*.vault.json
+.tdoc-vault.json
+*.test-vault.json
+
+# 运行时产物 / 日志
+*.log
+*.dump
+
+# 本地代码检查 / 编辑器
+.idea/
+.vscode/
+.DS_Store
+
+# 发布缓存
+*.tgz
