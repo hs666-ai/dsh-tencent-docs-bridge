@@ -67,7 +67,10 @@ dsh plugin --profile web add github:hs666-ai/dsh-tencent-docs-bridge
 MIT
 
 ### 截图 / 演示
-（可选）安装后 DSH 工具列表可见 mcp__tencent-docs__*（如 get_sheet_info / set_cell_value / manage_search_file）；README 有装机验证记录表。
+![插件在 DSH 中已启用并运行中](../assets/screenshot-plugin-status.png)
+
+真实装机截图：插件在 desktop profile 的 DSH「内置插件」面板中**已启用、运行中**
+（DeepSeek Harness v0.2.0-rc.2 实测）。README 另有装机验证记录表。
 
 ### 补充说明
 - 非官方社区项目，无腾讯/DeepSeek 隶属关系

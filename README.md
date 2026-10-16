@@ -172,6 +172,13 @@ npm run check      # typecheck + test（沙箱内可用 node tests/*.mjs 单跑�
 | boot 宿主加载 | ✅ 无 `failed to import`（修复前会报 `warning: entry did not activate`） |
 | 测试 / 防泄露扫描 | ✅ 18/18 单测 + 零硬编码凭据 |
 
+**现场状态（desktop profile 真实装机）**：
+
+![插件在 DSH 中已启用并运行中](assets/screenshot-plugin-status.png)
+
+> 上图为 0.1.0 安装在 desktop profile 后的 DSH「内置插件」面板：插件
+> 已启用、运行中（真实环境截图，非 mock）。
+
 > 曾发现并修复一个加载兼容性问题：插件入口顶层 `import '@deepseek-ai/cordis'`
 > 会导致真实宿主 `failed to import`（cordis 为宿主注入的 peer dep，插件自身
 > node_modules 中解析不到）。已改为官方同款 `apply(ctx)` 模式，运行时不依赖
