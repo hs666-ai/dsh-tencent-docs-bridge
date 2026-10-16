@@ -34,7 +34,10 @@ DeepSeek Harness（DSH）插件，作用一句话：**让你在 DSH 里直接对
    官方频率限制（免费 2000 次/天）由官方执行，本项目不绕过。
 3. **凭据安全**：`space_secret` = 你账号的 API 凭据，**只保存在本地**，
    请勿分享；轮换会使旧值立即失效。
-4. 完整条款见 [DISCLAIMER.md](DISCLAIMER.md)，设计约束见 [COMPLIANCE.md](COMPLIANCE.md)。
+4. **不存不传**：本项目**不存储、不传输、不托管**你的文档内容与登录凭据，
+   凭据仅存本地 vault / 环境变量，可随时清除。
+5. **无担保**：项目按"现状"（AS-IS）提供，作者不对兼容性、可用性做保证。
+6. 完整条款见 [DISCLAIMER.md](DISCLAIMER.md)，设计约束见 [COMPLIANCE.md](COMPLIANCE.md)。
 
 ---
 

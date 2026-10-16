@@ -23,6 +23,12 @@ const HELP = `用法: tdoc-auth <subcommand> [options]
   probe                     用取票链上的 token 探测官方 MCP 端点有效性
   clear                     清空 vault 凭据（退出登录）`;
 
+/** 社区非官方提示：任一实子命令执行时输出一行（COMPLIANCE.md §3 第三处落地） */
+const DISCLAIMER_LINE =
+  '[!] 社区非官方项目，与腾讯/DeepSeek 无隶属关系；使用即视为接受 DISCLAIMER.md 条款。';
+
+const ACTUAL_CMDS = new Set(['status', 'inject', 'probe', 'clear']);
+
 function parseArgs(argv) {
   const o = { _: [] };
   for (let i = 0; i < argv.length; i++) {
@@ -67,6 +73,9 @@ async function probeToken(token) {
 async function main() {
   const a = parseArgs(process.argv.slice(2));
   const cmd = (a._[0] || '').toLowerCase();
+
+  // 任一实子命令先输出社区非官方提示（COMPLIANCE.md §3）
+  if (ACTUAL_CMDS.has(cmd)) console.error(DISCLAIMER_LINE);
 
   if (cmd === 'status') {
     const v = readVault();
