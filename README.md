@@ -66,23 +66,30 @@ dsh plugin --profile web add github:hs666-ai/dsh-tencent-docs-bridge
 
 插件**不内置任何 token**。你需要先拿到自己账号的 `space_secret`（32 位 hex）：
 
-**方式 1（推荐，完全自足）—— 用本插件自带 CLI：**
+**方式 1（推荐，一条命令弹窗扫码）—— 用本插件自带 CLI：**
 ```bash
-# 1) 在浏览器登录 https://docs.qq.com/desktop/ （微信/QQ 扫码）
-# 2) 从登录态获取 space_secret，写入本地 vault：
-npx tdoc-auth inject --token <32位hex>
-# 3) 验证：
+# 自动弹出系统浏览器（Chrome/Edge）→ 微信/QQ 扫码 → 自动写入 vault：
+npx tdoc-auth login
+# 验证：
 npx tdoc-auth probe
 ```
-> `space_secret` 获取细节见 [docs/SELF-SERVE.md](docs/SELF-SERVE.md)
-> （含 create_secret 接口说明——这是 docs.qq.com 官方登录态下的标准取票口）。
+> `login` 内部通过浏览器调试口调用官方 `create_secret` 接口取 space_secret，
+> 无需手动粘贴、无需外部脚本。`--refresh` 可轮换新密钥（旧密钥立即失效）。
+> 取票细节见 [docs/SELF-SERVE.md](docs/SELF-SERVE.md)。
 
-**方式 2 —— 环境变量：**
+**方式 2 —— 手动注入（无弹窗/CI 场景）：**
+```bash
+# 1) 在浏览器登录 https://docs.qq.com/desktop/ （微信/QQ 扫码）
+# 2) 从登录态获取 space_secret（见 SELF-SERVE.md），写入本地 vault：
+npx tdoc-auth inject --token <32位hex>
+```
+
+**方式 3 —— 环境变量：**
 ```bash
 export TDOC_OAUTH_ACCESS_TOKEN=<32位hex>
 ```
 
-**方式 3 —— 本地网关：** 若你已在 127.0.0.1:18761 跑了一个兼容
+**方式 4 —— 本地网关：** 若你已在 127.0.0.1:18761 跑了一个兼容
 `/internal/tencent-docs/tokens` 的网关，插件启动时也会从那里取。
 
 ### 重启并验证
@@ -118,7 +125,7 @@ export TDOC_OAUTH_ACCESS_TOKEN=<32位hex>
 | `lib/resolver.js` | 取票链：env > vault > 本地网关（兼容） |
 | `lib/vault.js` | 本地凭据箱：读写 + 权限收紧 + 脱敏指纹 |
 | `lib/mcp.js` | 端点定义唯一来源 + mcp-client config 构造（两种模式共用） |
-| `bin/tdoc-auth.mjs` | 取票 CLI：inject / probe / status / clear |
+| `bin/tdoc-auth.mjs` | 取票 CLI：login（弹窗扫码）/ inject / probe / status / clear |
 | `cordis.patch.yml` | 把插件自身插入 profile 层（mcp 条目由运行时挂载，绝无明文） |
 
 ---

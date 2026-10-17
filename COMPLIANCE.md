@@ -59,7 +59,7 @@
 > 免责条款不写入 LICENSE，集中承载在 DISCLAIMER.md；三处落地：
 > ① README「⚠️ 重要声明」段（已含本条 6 项摘要）；
 > ② DISCLAIMER.md（完整条款）；
-> ③ `bin/tdoc-auth.mjs` 任一实子命令（inject/probe/status/clear）执行时输出一行社区非官方提示。
+> ③ `bin/tdoc-auth.mjs` 任一实子命令（login/inject/probe/status/clear）执行时输出一行社区非官方提示。
 
 - 本项目是**社区/独立项目**，与腾讯公司及其关联公司**无任何隶属、授权或合作关系**
 - 插件仅作为**客户端封装**连接腾讯文档官方开放的 MCP 端点；调用腾讯文档所产生的一切责任

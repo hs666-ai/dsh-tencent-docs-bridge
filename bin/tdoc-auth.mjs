@@ -15,8 +15,11 @@
 import { resolveToken, summarize } from '../lib/resolver.js';
 import { readVault, writeVault, clearVault, vaultPath, tokenFingerprint, tightenAcl, isValidSecret } from '../lib/vault.js';
 import { TDOC_MCP, jsonRpcRequest } from '../lib/mcp.js';
+import { runLogin } from '../lib/login.js';
 
 const HELP = `用法: tdoc-auth <subcommand> [options]
+  login                     一键取票：自动弹出浏览器扫码登录，写入 vault
+                            可选 --refresh（轮换出新密钥，旧密钥立即失效）
   status                    查看本地 vault 摘要（不含 token 明文）
   inject --token <secret>   手动写入 space_secret（粘贴自扫码结果）
   inject --file <path>      从 JSON 文件读 access_token 写入
@@ -27,7 +30,7 @@ const HELP = `用法: tdoc-auth <subcommand> [options]
 const DISCLAIMER_LINE =
   '[!] 社区非官方项目，与腾讯/DeepSeek 无隶属关系；使用即视为接受 DISCLAIMER.md 条款。';
 
-const ACTUAL_CMDS = new Set(['status', 'inject', 'probe', 'clear']);
+const ACTUAL_CMDS = new Set(['login', 'status', 'inject', 'probe', 'clear']);
 
 function parseArgs(argv) {
   const o = { _: [] };
@@ -35,6 +38,7 @@ function parseArgs(argv) {
     const a = argv[i];
     if (a === '--token') o.token = argv[++i];
     else if (a === '--file') o.file = argv[++i];
+    else if (a === '--refresh') o.refresh = true;
     else o._.push(a);
   }
   return o;
@@ -76,6 +80,20 @@ async function main() {
 
   // 任一实子命令先输出社区非官方提示（COMPLIANCE.md §3）
   if (ACTUAL_CMDS.has(cmd)) console.error(DISCLAIMER_LINE);
+
+  if (cmd === 'login') {
+    const r = await runLogin({
+      env: process.env,
+      refresh: !!a.refresh,
+      onStatus: (m) => console.log('[login]', m),
+    });
+    if (!r.ok) {
+      console.error('❌', r.detail || r.reason);
+      return 2;
+    }
+    console.log(`✅ 取票成功，已写入 vault（${r.fingerprint}，来源=${r.source}）。下一步: \`tdoc-auth probe\``);
+    return 0;
+  }
 
   if (cmd === 'status') {
     const v = readVault();

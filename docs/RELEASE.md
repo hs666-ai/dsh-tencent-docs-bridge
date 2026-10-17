@@ -49,5 +49,8 @@ npx tdoc-auth status  # 确认不误打印任何明文
 
 ## 版本历史
 
+- **0.2.0**：新增 `tdoc-auth login` 一键取票（自动定位 Chrome/Edge → 弹窗扫码 →
+  官方 create_secret 取票写 vault，一条命令完成，纯 Node 内置零外部依赖）；
+  修复「普通用户需手动开调试 Chrome + 手动粘贴 hex」的体验缺陷。
 - **0.1.0**（初始）：方案 A 骨架——取票链（env>vault>网关）+ 运行时挂载官方
   mcp-client + tdoc-auth CLI + 防泄露测试与发布检查。尚未接入真实账号验证。
