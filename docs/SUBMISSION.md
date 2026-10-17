@@ -56,6 +56,7 @@ https://github.com/hs666-ai/dsh-tencent-docs-bridge
 
 ### 安装命令
 dsh plugin --profile web add github:hs666-ai/dsh-tencent-docs-bridge
+（已发布 npm：`dsh plugin --profile web add @hs666-ai/dsh-tencent-docs-bridge`）
 
 ### 兼容与运行要求
 - DSH：实测通过 v0.2.0-rc.2（真实装机验证：plugin add → 合成树 → 入口加载 → host boot 均无报错）

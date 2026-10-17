@@ -53,10 +53,10 @@ DeepSeek Harness（DSH）插件，作用一句话：**让你在 DSH 里直接对
 ### 安装插件
 
 ```bash
-# 从 npm（发布后）：
-dsh plugin --profile web add dsh-tencent-docs-bridge
+# 从 npm（推荐，可被 DSH 插件中心一键收录）：
+dsh plugin --profile web add @hs666-ai/dsh-tencent-docs-bridge
 
-# 或从 GitHub（推荐提交市场时使用）：
+# 或从 GitHub（源码安装）：
 dsh plugin --profile web add github:hs666-ai/dsh-tencent-docs-bridge
 ```
 

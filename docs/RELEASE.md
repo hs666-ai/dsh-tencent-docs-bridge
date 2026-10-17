@@ -28,7 +28,7 @@ npx tdoc-auth status  # 确认不误打印任何明文
    - 不写内部实现手段
 5. **自测安装**：
    ```bash
-   dsh plugin --profile web add dsh-tencent-docs-bridge
+   dsh plugin --profile web add @hs666-ai/dsh-tencent-docs-bridge
    # 重启 dsh web → 设置 → 插件
    ```
 
