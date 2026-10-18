@@ -67,6 +67,26 @@ test('302/401 → 未登录提示', () => {
   });
 });
 
+test('400 错误页（未扫码）→ 友好等待提示，不展示原始 400 页', () => {
+  const r = parseSecretResponse(JSON.stringify({
+    status: 400,
+    body: '- - - -\nHTTP Status: 400 Service Error\nURL: https://docs.qq.com%2Foauth%2Fv2%2Fspace%2Fcreate_secret',
+  }));
+  assert.equal(r.ok, false);
+  assert.ok(r.detail.includes('扫码'), `detail 应为友好提示，实际: ${r.detail}`);
+  assert.ok(!r.detail.includes('HTTP Status'), '不得向用户展示原始错误页');
+  assert.ok(!r.detail.includes('create_secret'), '不得向用户展示原始 URL');
+});
+
+test('空响应（页面未就绪）→ 友好等待提示', () => {
+  const r1 = parseSecretResponse('');
+  assert.equal(r1.ok, false);
+  assert.ok(r1.detail.includes('尚未就绪'), `detail 应说明页面未就绪，实际: ${r1.detail}`);
+  const r2 = parseSecretResponse('   ');
+  assert.equal(r2.ok, false);
+  assert.ok(r2.detail.includes('尚未就绪'));
+});
+
 test('业务错误 / 畸形数据 → 失败且不抛', () => {
   const r1 = parseSecretResponse(JSON.stringify({ status: 200, body: { ret: 400006, data: null } }));
   assert.equal(r1.ok, false);
