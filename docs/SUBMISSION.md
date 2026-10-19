@@ -30,7 +30,7 @@
 - [x] README 包含**安装命令**（形如 `dsh plugin --profile web add github:...`）——
       见 README「快速开始 → 安装插件」
 - [x] 插件导出 **apply(ctx) 模块**——`lib/index.js` 导出 `name` + `apply`（官方规范）
-- [x] 仓库根目录包含 **package.json**（写明了包名 `dsh-tencent-docs-bridge` 与版本 `0.1.0`）
+- [x] 仓库根目录包含 **package.json**（写明了包名 `dsh-tencent-docs-bridge` 与版本 `0.2.1`）
 - [x] 不冒充官方（README/DISCLAIMER/COMPLIANCE 多处声明社区非官方、无隶属）
 
 > 常见被驳回原因对照：
@@ -55,8 +55,9 @@ https://github.com/hs666-ai/dsh-tencent-docs-bridge
 集成与连接
 
 ### 安装命令
-dsh plugin --profile web add github:hs666-ai/dsh-tencent-docs-bridge
-（已发布 npm：`dsh plugin --profile web add @hs666-ai/dsh-tencent-docs-bridge`）
+dsh plugin --profile web add @hs666-ai/dsh-tencent-docs-bridge
+（或从 GitHub 源码安装：`dsh plugin --profile web add github:hs666-ai/dsh-tencent-docs-bridge`）
+> 两条命令都不锁版本，安装时取 npm `latest` / GitHub `main` 的最新发布（当前 0.2.1）。
 
 ### 兼容与运行要求
 - DSH：实测通过 v0.2.0-rc.2（真实装机验证：plugin add → 合成树 → 入口加载 → host boot 均无报错）
@@ -89,15 +90,19 @@ MIT
 
 ---
 
-## 发布后（可选）在 README 加收录徽章
+## 收录状态与徽章
 
-插件被收录后，将下方 `your-owner` 与 `your-plugin-slug` 替换为详情页地址对应部分：
+**已收录**（2026-10-19 实测 HTTP 200）：
+[dsh-plugin.org/plugins/hs666-ai/dsh-tencent-docs-bridge](https://dsh-plugin.org/plugins/hs666-ai/dsh-tencent-docs-bridge)
+
+该详情页由市场自动生成/重写 README，安装命令不锁版本（取 GitHub `main` 最新），
+故发布 0.2.1 后无需在市场侧改「安装说明」，市场下次扫描会自动同步。
+
+如需在 README 加收录徽章（可选）：
 
 ```markdown
-[![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/your-owner/your-plugin-slug)
+[![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/hs666-ai/dsh-tencent-docs-bridge)
 ```
-
-（slug 即收录详情页 URL 中 `plugins/` 后两段；未收录前可不加。）
 
 ---
 
