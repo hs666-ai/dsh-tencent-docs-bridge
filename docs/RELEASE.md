@@ -49,6 +49,12 @@ npx -y @hs666-ai/dsh-tencent-docs-bridge status  # 确认不误打印任何明�
 
 ## 版本历史
 
+- **0.2.3**：修复**真实宿主加载失败**（插件面板「启用失败 / 未运行」）——
+  `cordis.patch.yml` 的 `name` 写成了裸名 `dsh-tencent-docs-bridge`，
+  而 npm 包名是 scoped `@hs666-ai/dsh-tencent-docs-bridge`，profile 的
+  node_modules 里解析不到裸名 → 宿主 import 抛 MODULE_NOT_FOUND。
+  已改为完整 scoped 名，并新增 `tests/bundle.test.mjs` 回归测试
+  （锁死 patch name == package name、patch 被 files/exports 收录、入口导出 apply/name）。
 - **0.2.2**：修文档级首次使用阻塞——README / SELF-SERVE 把 `npx tdoc-auth …`
   改为 `npx -y @hs666-ai/dsh-tencent-docs-bridge …`（前者在全新环境会 404：
   npm 上没有 `tdoc-auth` 包）；补充 v0.2.1 全新用户全流程实测记录

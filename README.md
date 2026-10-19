@@ -107,6 +107,18 @@ export TDOC_OAUTH_ACCESS_TOKEN=<32位hex>
 
 对模型说一句"列出我最近的腾讯文档"即可验证。
 
+### 常见问题：插件面板显示「未运行 / 启用失败」
+
+若插件面板出现 `1 entry did not activate … failed to import`，一般是安装的版本过旧：
+**0.2.2 及更早**的 `cordis.patch.yml` 用了不带 scope 的模块名
+（`dsh-tencent-docs-bridge`），而 npm 包名是 `@hs666-ai/dsh-tencent-docs-bridge`，
+宿主按裸名 import 会 `MODULE_NOT_FOUND`。升级到 **0.2.3+** 即修复：
+
+```bash
+dsh plugin --profile <你的profile> add @hs666-ai/dsh-tencent-docs-bridge@latest
+# 然后重启 dsh web / 桌面端
+```
+
 ---
 
 ## 工作方式（方案 A 细节）

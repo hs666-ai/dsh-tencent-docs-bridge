@@ -1,6 +1,6 @@
 {
   "name": "@hs666-ai/dsh-tencent-docs-bridge",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Community (unofficial) bridge to Tencent Docs official MCP: one-click mcp-client configuration + self-served space_secret acquisition (scan → local vault → gateway). Zero bundled credentials. · 社区（非官方）腾讯文档 MCP 桥：一键配置官方 mcp-client 连接 docs.qq.com MCP 端点 + 自足取票（扫码→本地 vault→网关），不内置任何凭据。",
   "type": "module",
   "main": "lib/index.js",
@@ -34,7 +34,7 @@
   "scripts": {
     "build": "node scripts/check-no-token.mjs && node --check lib/index.js && node --check lib/resolver.js && node --check lib/vault.js && node --check lib/mcp.js && node --check lib/login.js && node --check bin/tdoc-auth.mjs",
     "typecheck": "npm run build",
-    "test": "node tests/vault.test.mjs && node tests/mcp.test.mjs && node tests/resolver.test.mjs && node tests/applier.test.mjs && node tests/login.test.mjs",
+    "test": "node tests/vault.test.mjs && node tests/mcp.test.mjs && node tests/resolver.test.mjs && node tests/applier.test.mjs && node tests/login.test.mjs && node tests/bundle.test.mjs",
     "check": "npm run build && npm run test"
   },
   "bin": {

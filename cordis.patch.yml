@@ -5,4 +5,4 @@
 # README.md → "Declarative mode" (token must then come from env, never literal).
 - insert:
     - id: dsh-tencent-docs-bridge
-      name: 'dsh-tencent-docs-bridge'
+      name: '@hs666-ai/dsh-tencent-docs-bridge'
