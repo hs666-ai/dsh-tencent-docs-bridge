@@ -69,10 +69,13 @@ dsh plugin --profile web add github:hs666-ai/dsh-tencent-docs-bridge
 **方式 1（推荐，一条命令弹窗扫码）—— 用本插件自带 CLI：**
 ```bash
 # 自动弹出系统浏览器（Chrome/Edge）→ 微信/QQ 扫码 → 自动写入 vault：
-npx tdoc-auth login
+npx -y @hs666-ai/dsh-tencent-docs-bridge login
 # 验证：
-npx tdoc-auth probe
+npx -y @hs666-ai/dsh-tencent-docs-bridge probe
 ```
+> 注意用上面的形式：`npx tdoc-auth …` 只在「已全局安装」时可用，
+> 全新环境直接跑会 404（npm 上没有名为 `tdoc-auth` 的包）。
+> 下面的 `tdoc-auth xxx` 一律替换为 `npx -y @hs666-ai/dsh-tencent-docs-bridge xxx`。
 > `login` 内部通过浏览器调试口调用官方 `create_secret` 接口取 space_secret，
 > 无需手动粘贴、无需外部脚本。`--refresh` 可轮换新密钥（旧密钥立即失效）。
 > 取票细节见 [docs/SELF-SERVE.md](docs/SELF-SERVE.md)。
@@ -81,7 +84,7 @@ npx tdoc-auth probe
 ```bash
 # 1) 在浏览器登录 https://docs.qq.com/desktop/ （微信/QQ 扫码）
 # 2) 从登录态获取 space_secret（见 SELF-SERVE.md），写入本地 vault：
-npx tdoc-auth inject --token <32位hex>
+npx -y @hs666-ai/dsh-tencent-docs-bridge inject --token <32位hex>
 ```
 
 **方式 3 —— 环境变量：**
@@ -158,8 +161,8 @@ profile 的 `cordis.patch.yml`，token 走环境变量（**不要贴明文**）�
 - ✅ token 只存在：本地 vault（权限 0600 / Windows ACL 收紧）+ 进程内存 + 发往官方端点的请求头
 - ✅ 日志只输出「长度+前 4 位」指纹（`len32:83ca…`），绝无完整 token
 - ✅ 模型只见 MCP 工具结果（业务数据），不见 token
-- ✅ 卸载 = 本文档 + `npx tdoc-auth clear` 清空 vault，即完全断连
-- ✅ `npx tdoc-auth status` 可随时查看 vault 摘要（无明文）
+- ✅ 卸载 = 本文档 + `npx -y @hs666-ai/dsh-tencent-docs-bridge clear` 清空 vault，即完全断连
+- ✅ `npx -y @hs666-ai/dsh-tencent-docs-bridge status` 可随时查看 vault 摘要（无明文）
 
 ## 开发 / 测试
 
@@ -190,6 +193,21 @@ npm run check      # typecheck + test（沙箱内可用 node tests/*.mjs 单跑�
 > 会导致真实宿主 `failed to import`（cordis 为宿主注入的 peer dep，插件自身
 > node_modules 中解析不到）。已改为官方同款 `apply(ctx)` 模式，运行时不依赖
 > cordis 模块解析。发布前防泄露检查见 [docs/RELEASE.md](docs/RELEASE.md)。
+
+## 首次使用全流程实测（v0.2.1）
+
+2026-10-19 以**完全全新用户**状态实测（清空本地 vault、浏览器用独立临时 profile、无任何旧凭据）：
+
+| 步骤 | 结果 |
+|---|---|
+| `npx -y @hs666-ai/dsh-tencent-docs-bridge login`（弹窗扫码） | ✅ vault 写入（`len32:83ca…`，`_source=cdp-login`） |
+| `… probe` | ✅ 官方端点 HTTP 200（工具数 **226**） |
+| MCP 工具发现 / 调用 | ✅ `sheet.get_sheet_info`、`sheet.set_range_value` 等可用 |
+| 写入真实在线表格并回读 | ✅ 写入 8 行 → 回读 CSV 与写入内容逐字一致 |
+
+> 本次实测同时发现并修复一个首次使用阻塞：早期文档写的 `npx tdoc-auth …`
+> 在全新环境会 404（npm 上没有 `tdoc-auth` 这个包），已改为
+> `npx -y @hs666-ai/dsh-tencent-docs-bridge …`（见 0.2.2）。
 
 ## 发布（维护者）
 

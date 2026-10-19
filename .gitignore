@@ -17,3 +17,4 @@ vault.json
 
 # 发布缓存
 *.tgz
+.npm-cache-tmp/

@@ -7,7 +7,7 @@
 
 ```bash
 npm run check       # 防泄露检查 + 语法 + 单元测试
-npx tdoc-auth status  # 确认不误打印任何明文
+npx -y @hs666-ai/dsh-tencent-docs-bridge status  # 确认不误打印任何明文
 ```
 
 `check` 里包含 `scripts/check-no-token.mjs`（禁止仓库出现 32 位 hex 疑似凭据）。
@@ -49,6 +49,10 @@ npx tdoc-auth status  # 确认不误打印任何明文
 
 ## 版本历史
 
+- **0.2.2**：修文档级首次使用阻塞——README / SELF-SERVE 把 `npx tdoc-auth …`
+  改为 `npx -y @hs666-ai/dsh-tencent-docs-bridge …`（前者在全新环境会 404：
+  npm 上没有 `tdoc-auth` 包）；补充 v0.2.1 全新用户全流程实测记录
+  （扫码取票 → probe 226 工具 → 真实在线表格写入 + 回读一致）。
 - **0.2.1**：登录体验文案优化——扫码等待期的 400 错误页 / 页面空白不再显示
   原始报错，改为「等待扫码完成…」「页面尚未就绪，正在等待加载…」等友好提示。
 - **0.2.0**：新增 `tdoc-auth login` 一键取票（自动定位 Chrome/Edge → 弹窗扫码 →

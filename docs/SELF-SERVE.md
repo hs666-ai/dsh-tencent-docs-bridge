@@ -37,9 +37,13 @@ GET https://docs.qq.com/oauth/v2/space/create_secret?refresh=0|1&mcp_source=desk
 收敛为一条命令，全程纯 Node 内置（Node ≥ 22.6，零外部依赖）：
 
 ```bash
-npx tdoc-auth login            # 自动弹出 Chrome/Edge → 微信/QQ 扫码 → 自动写入 vault
-npx tdoc-auth probe            # → ✅ 官方端点返回 200（工具数 …）即成功
+npx -y @hs666-ai/dsh-tencent-docs-bridge login   # 自动弹出 Chrome/Edge → 微信/QQ 扫码 → 自动写入 vault
+npx -y @hs666-ai/dsh-tencent-docs-bridge probe   # → ✅ 官方端点返回 200（工具数 …）即成功
 ```
+
+> 全新环境不要写 `npx tdoc-auth …`：npm 上没有 `tdoc-auth` 这个包（会 404）。
+> 下文的 `tdoc-auth xxx` 均为简写，实际执行请用
+> `npx -y @hs666-ai/dsh-tencent-docs-bridge xxx`（或全局安装后的 `tdoc-auth xxx`）。
 
 要点：
 
@@ -50,7 +54,7 @@ npx tdoc-auth probe            # → ✅ 官方端点返回 200（工具数 …�
 3. **全程无明文**：secret 只写 vault（权限 0600 / Windows ACL 收紧），
    日志与状态输出只有脱敏指纹（`len32:83ca…`）。
 4. **扫码超时**：默认等待 180 秒，超时即退出（可放心重跑）。
-5. **轮换**：`npx tdoc-auth login --refresh` 取全新 secret（旧值立即失效）。
+5. **轮换**：`npx -y @hs666-ai/dsh-tencent-docs-bridge login --refresh` 取全新 secret（旧值立即失效）。
 
 ---
 
@@ -58,7 +62,7 @@ npx tdoc-auth probe            # → ✅ 官方端点返回 200（工具数 …�
 
 | 方式 | 做法 | 适用 |
 |---|---|---|
-| 手动注入 | `npx tdoc-auth inject --token <32位hex>`（来自浏览器登录态手工获取） | 无弹窗/CI 场景 |
+| 手动注入 | `npx -y @hs666-ai/dsh-tencent-docs-bridge inject --token <32位hex>`（来自浏览器登录态手工获取） | 无弹窗/CI 场景 |
 | 环境变量 | `export TDOC_OAUTH_ACCESS_TOKEN=<32位hex>` | 脚本/CI 场景 |
 | 本地网关 | 在 `127.0.0.1:18761` 跑兼容 `/internal/tencent-docs/tokens` 的网关 | 已用 tdoc_gateway.py 的用户 |
 | 手动写 vault | 编辑 `~/.dsh/tencent-docs/vault.json` 的 `access_token` 字段 | 无 CLI 场景 |

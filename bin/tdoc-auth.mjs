@@ -24,7 +24,10 @@ const HELP = `用法: tdoc-auth <subcommand> [options]
   inject --token <secret>   手动写入 space_secret（粘贴自扫码结果）
   inject --file <path>      从 JSON 文件读 access_token 写入
   probe                     用取票链上的 token 探测官方 MCP 端点有效性
-  clear                     清空 vault 凭据（退出登录）`;
+  clear                     清空 vault 凭据（退出登录）
+
+首次使用（未全局安装 tdoc-auth 时）请用：
+  npx -y @hs666-ai/dsh-tencent-docs-bridge <subcommand> [options]`;
 
 /** 社区非官方提示：任一实子命令执行时输出一行（COMPLIANCE.md §3 第三处落地） */
 const DISCLAIMER_LINE =
