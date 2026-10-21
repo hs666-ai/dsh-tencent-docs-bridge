@@ -7,6 +7,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D22.6-green.svg)](package.json)
 [![Topic](https://img.shields.io/badge/topic-dsh--plugin-0e7490.svg)](https://github.com/topics/dsh-plugin)
+[![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/hs666-ai/dsh-tencent-docs-bridge)
 
 - [免责声明](DISCLAIMER.md)（安装/使用前必读）
 - [合规调研与约束矩阵](COMPLIANCE.md)
